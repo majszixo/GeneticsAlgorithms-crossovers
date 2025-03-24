@@ -17,7 +17,7 @@ class Animal:
         return self.offspring * (self.survivalRate / 100) * (self.categoryA + self.categoryBplus + self.categoryB + self.categoryC) / 100
     
     def __repr__(self):
-        return f"{self.species}: offspring = {self.offspring}, survival rate = {self.survival_rate}%, fitness = {self.fitness:.2f}"
+        return f"{self.species}: offspring = {self.offspring}, survival rate = {self.survivalRate}%, fitness = {self.fitness:.2f}"
 
 def onePointCrossover(parent_1, parent_2):
     randomPointCrossover = random.randint(1,6)
@@ -34,12 +34,17 @@ def kPointCrossover(parent_1, parent_2, k):
     new_attributes = []
     for i in range(0,6):
         if i in points:
-            use_parent_1 = not use_parent_1
-        attr_value = getattr(parent_1 if use_parent_1 else parent_2, attrs[i])
+            useParent_1 = not useParent_1
+        attr_value = getattr(parent_1 if useParent_1 else parent_2, attrs[i])
         new_attributes.append(attr_value)
 
     return Animal(parent_1.species, *new_attributes)
 
+def shuffleCrossover(parent_1, parent_2):
+    attrs = ["offspring", "survivalRate", "categoryA", "categoryBplus", "categoryB", "categoryC"]
+    shuffled = random.sample(attrs, len(attrs))
+    new_attributes = [getattr(parent_1, attr) if random.random() < 0.5 else getattr(parent_2, attr) for attr in shuffled]
+    return Animal(parent_1.species, *new_attributes)
 
     
 
