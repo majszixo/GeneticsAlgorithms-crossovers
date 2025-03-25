@@ -46,10 +46,20 @@ def shuffleCrossover(parent_1, parent_2):
     new_attributes = [getattr(parent_1, attr) if random.random() < 0.5 else getattr(parent_2, attr) for attr in shuffled]
     return Animal(parent_1.species, *new_attributes)
 
-def reducedSurrogate(parent_1, parent_2):
+def reducedSurrogateCrossover(parent_1, parent_2):
     new_attributes = [getattr(parent_1, attr) if getattr(parent_1, attr) == getattr(parent_2, attr) else getattr(parent_2, attr) 
                        for attr in ["offspring", "survivalRate", "categoryA", "categoryBplus", "categoryB", "categoryC"] ]
 
     return Animal(parent_1.species, *new_attributes)
-    
+
+
+parent_1 = Animal("Fox", 10.0, 69.2, 42.0, 7.0, 40.9, 46.5)
+parent_2 = Animal("Fox", 4.3, 67.6, 22.1, 4.8, 33.3, 42.9)
+
+child = onePointCrossover(parent_1, parent_2)
+
+print(f"Parent 1: {parent_1}")
+print(f"Parent 2: {parent_2}")
+print(f"Child: {child}")
+
 
