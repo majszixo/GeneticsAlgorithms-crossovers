@@ -46,5 +46,10 @@ def shuffleCrossover(parent_1, parent_2):
     new_attributes = [getattr(parent_1, attr) if random.random() < 0.5 else getattr(parent_2, attr) for attr in shuffled]
     return Animal(parent_1.species, *new_attributes)
 
+def reducedSurrogate(parent_1, parent_2):
+    new_attributes = [getattr(parent_1, attr) if getattr(parent_1, attr) == getattr(parent_2, attr) else getattr(parent_2, attr) 
+                       for attr in ["offspring", "survivalRate", "categoryA", "categoryBplus", "categoryB", "categoryC"] ]
+
+    return Animal(parent_1.species, *new_attributes)
     
 
